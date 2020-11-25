@@ -20,6 +20,10 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.dev.domain.Aluno;
 import com.dev.services.AlunoService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
+@Api(value = "Aluno")
 @RestController
 @RequestMapping(value = "/alunos")
 public class AlunoResource {
@@ -27,18 +31,21 @@ public class AlunoResource {
 	@Autowired
 	public AlunoService service;
 	
+	@ApiOperation(value = "Buscar todos os alunos cadastrados")
 	@GetMapping
 	public ResponseEntity<List<Aluno>> findAll(){
 		List<Aluno> list = service.findAll();
 		return ResponseEntity.ok().body(list);
 	}
 	
+	@ApiOperation(value = "Buscar um aluno pelo seu identificador")
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Aluno> find(@PathVariable Integer id){
 		Aluno obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
 	}
 	
+	@ApiOperation(value = "Cadastrar um novo aluno no sistema")
 	@PostMapping
 	public ResponseEntity<Void> insert(@Valid @RequestBody Aluno obj){
 		obj = service.insert(obj);
@@ -47,6 +54,7 @@ public class AlunoResource {
 		return ResponseEntity.created(uri).build();
 	}
 	
+	@ApiOperation(value = "Atualizar as informações de um aluno específico")
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<Void> update(@Valid @RequestBody Aluno obj, @PathVariable Integer id){
 		obj.setId(id);
@@ -54,6 +62,7 @@ public class AlunoResource {
 		return ResponseEntity.noContent().build();
 	}
 	
+	@ApiOperation(value = "Remover o cadastro de um aluno do sistema")
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Integer id){
 		service.delete(id);
