@@ -44,5 +44,7 @@ public class AlunoService {
 	private void updateData(Aluno newObj, Aluno obj) {
 		newObj.setNome(obj.getNome());
 		newObj.setCurso(obj.getCurso());
+		newObj.setEmail(obj.getEmail());
+		newObj.setPassword(obj.getPassword());
 	}
 }

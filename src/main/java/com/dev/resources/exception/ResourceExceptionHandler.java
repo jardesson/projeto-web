@@ -2,6 +2,7 @@ package com.dev.resources.exception;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -19,6 +20,14 @@ public class ResourceExceptionHandler {
 		StandardError err = new StandardError(
 				System.currentTimeMillis(), HttpStatus.NOT_FOUND.value(), "Não encontrado", e.getMessage(), request.getRequestURI());
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
+	}
+	
+	@ExceptionHandler(DataIntegrityViolationException.class)
+	public ResponseEntity<StandardError> dataIntegrity(DataIntegrityViolationException e, HttpServletRequest request){
+		String message = "O email informado já encontra-se cadastrado no sistema. Por favor, informe um outro email!";
+		StandardError err = new StandardError(
+				System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(), "Email já cadastrado.", message, request.getRequestURI());
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
 	}
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
