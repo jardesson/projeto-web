@@ -1,6 +1,7 @@
 package com.dev.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,33 +17,32 @@ public class AlunoService {
 	private AlunoRepository repo;
 	
 	public Aluno find(Integer id) {
-		Aluno obj = repo.getById(id);
-		if(obj == null) {
-			throw new ObjectNotFoundException("Objeto não encontrado! Id: "+id+", Tipo: "+Aluno.class.getName());
-		}
-		return obj;
+		Optional<Aluno> obj = repo.findById(id);
+		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: "+id+", Tipo: "+Aluno.class.getName()));
 	}
 	
 	public List<Aluno> findAll(){
-		return repo.getAll();
+		return repo.findAll();
 	}
 	
 	public Aluno insert(Aluno obj) {
-		return repo.create(obj);
+		obj.setId(null);
+		return repo.save(obj);
 	}
 	
 	public Aluno update(Aluno obj) {
-		Aluno aluno = repo.update(obj);
-		if(aluno == null) {
-			throw new ObjectNotFoundException("Objeto não encontrado! Id: "+obj.getId()+", Tipo: "+Aluno.class.getName());
-		}
-		return obj;
+		Aluno newObj = find(obj.getId());
+		updateData(newObj, obj);
+		return repo.save(newObj);
 	}
 	
 	public void delete(Integer id) {
-		Aluno obj = repo.delete(id);
-		if(obj == null) {
-			throw new ObjectNotFoundException("Objeto não encontrado! Id: "+id+", Tipo: "+Aluno.class.getName());
-		}
+		find(id);
+		repo.deleteById(id);
+	}
+	
+	private void updateData(Aluno newObj, Aluno obj) {
+		newObj.setNome(obj.getNome());
+		newObj.setCurso(obj.getCurso());
 	}
 }
