@@ -9,9 +9,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -21,13 +22,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity(name = "alunos")
+@Entity(name = "professor")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @EqualsAndHashCode(of = "id")
-public class Aluno implements Serializable{
+public class Professor implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -41,9 +42,9 @@ public class Aluno implements Serializable{
 	
 	@Length(min=5, max=30, message="O tamanho deve ser entre 5 e 30 caracteres.")
 	@NotEmpty(message="Preenchimento obrigatório.")
-	private String curso;
-	
-	@Column(unique = true)
+	private String matricula;
+    
+    @Column(unique = true)
 	@NotEmpty(message="Preenchimento obrigatório.")
 	@Length(min=5, max=50, message="O tamanho deve ser entre 5 e 50 caracteres.")
 	private String email;
@@ -52,7 +53,16 @@ public class Aluno implements Serializable{
 	@Length(min=5, max=50, message="O tamanho deve ser entre 5 e 20 caracteres.")
 	private String password;
 
-	@ManyToOne
-	@JoinColumn(name = "projeto_id")
-	private Projeto projeto;
+	@Column(unique = true)
+	@NotEmpty(message="Preenchimento obrigatório.")
+	@Length(min=5, max=50, message="O tamanho deve ser entre 5 e 50 caracteres.")
+	private String atuacao;
+	
+	@NotEmpty(message="Preenchimento obrigatório.")
+	@Length(min=5, max=50, message="O tamanho deve ser entre 5 e 20 caracteres.")
+	private String formacao;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "coordenador")
+	private List<Projeto> projetos = new ArrayList<>();
 }
