@@ -1,7 +1,7 @@
 package com.dev.resources;
 
 import com.dev.domain.dto.JwtResponseDTO;
-import com.dev.domain.dto.AlunoDTO;
+import com.dev.domain.dto.UserDTO;
 import com.dev.security.JwtTokenUtil;
 import com.dev.services.JwtUserDetailsService;
 
@@ -26,7 +26,7 @@ public class AuthResource {
 
     @PostMapping("/login")
     @ResponseBody
-    public ResponseEntity<JwtResponseDTO> createAuthenticationToken(@RequestBody AlunoDTO authenticationRequest) throws Exception {        
+    public ResponseEntity<JwtResponseDTO> createAuthenticationToken(@RequestBody UserDTO authenticationRequest) throws Exception {        
         final UserDetails userDetails = jwtService.loadUserByUsername(authenticationRequest.getEmail());
         final String token = jwtTokenUtil.generateToken(userDetails);
 

@@ -27,6 +27,8 @@ public class AlunoService {
 	
 	public Aluno insert(Aluno obj) {
 		obj.setId(null);
+		obj.setPapel("");
+		obj.setProjeto(null);
 		return repo.save(obj);
 	}
 	

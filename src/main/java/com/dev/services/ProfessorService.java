@@ -27,6 +27,7 @@ public class ProfessorService{
 	
 	public Professor insert(Professor obj) {
 		obj.setId(null);
+		obj.setProjetos(null);
 		return repo.save(obj);
 	}
 	
@@ -48,6 +49,7 @@ public class ProfessorService{
 		newObj.setPassword(obj.getPassword());
 		newObj.setAtuacao(obj.getAtuacao());
 		newObj.setFormacao(obj.getFormacao());
+		newObj.addProjeto(obj.getProjetos().get(0));
 
 	}
 }

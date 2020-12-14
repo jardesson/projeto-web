@@ -3,7 +3,9 @@ package com.dev.services;
 import java.util.List;
 import java.util.Optional;
 
+import com.dev.domain.Aluno;
 import com.dev.domain.Projeto;
+import com.dev.repository.AlunoRepository;
 import com.dev.repository.ProjetoRepository;
 import com.dev.services.exceptions.ObjectNotFoundException;
 
@@ -15,6 +17,12 @@ public class ProjetoService {
 
     @Autowired
 	private ProjetoRepository repo;
+
+	@Autowired
+	private AlunoService alunoService;
+
+	@Autowired
+	private AlunoRepository alunoRepository;
 	
 	public Projeto find(Integer id) {
 		Optional<Projeto> obj = repo.findById(id);
@@ -26,8 +34,12 @@ public class ProjetoService {
 	}
 	
 	public Projeto insert(Projeto obj) {
+		Aluno aluno = alunoService.find(obj.getAlunos().get(0).getId());
 		obj.setId(null);
-		return repo.save(obj);
+		obj = repo.save(obj);
+		aluno.setProjeto(obj);
+		alunoRepository.save(aluno);
+		return obj;
 	}
 	
 	public Projeto update(Projeto obj) {
@@ -45,6 +57,7 @@ public class ProjetoService {
         newObj.setNome(obj.getNome());
         newObj.setDescricao(obj.getDescricao());
         newObj.setCoordenador(obj.getCoordenador());
-        newObj.setAlunos(obj.getAlunos());
+		//newObj.setAlunos(obj.getAlunos());
+		newObj.addAluno(obj.getAlunos().get(0));
 	}
 }
