@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import com.dev.domain.Aluno;
 import com.dev.domain.Projeto;
+import com.dev.domain.dto.ProjetoNewDTO;
 import com.dev.domain.dto.ProjetoUpdateDTO;
 import com.dev.repository.AlunoRepository;
 import com.dev.repository.ProjetoRepository;
@@ -63,6 +64,10 @@ public class ProjetoService {
 	}
 
 	public Projeto fromDTO(ProjetoUpdateDTO objDTO) {
+		return new Projeto(objDTO.getId(), objDTO.getNome(), objDTO.getDescricao(), objDTO.getCoordenador(), objDTO.getAlunos());
+	}
+
+	public Projeto fromDTO2(ProjetoNewDTO objDTO) {
 		return new Projeto(objDTO.getId(), objDTO.getNome(), objDTO.getDescricao(), objDTO.getCoordenador(), objDTO.getAlunos());
 	}
 }

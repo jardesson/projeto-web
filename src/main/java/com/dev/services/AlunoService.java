@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dev.domain.Aluno;
+import com.dev.domain.dto.AlunoNewDTO;
 import com.dev.domain.dto.AlunoUpdateDTO;
 import com.dev.repository.AlunoRepository;
 import com.dev.services.exceptions.ObjectNotFoundException;
@@ -54,6 +55,11 @@ public class AlunoService {
 	}
 
 	public Aluno fromDTO(AlunoUpdateDTO objDTO) {
+		return new Aluno(objDTO.getId(), objDTO.getMatricula() ,objDTO.getNome(), objDTO.getEmail(), 
+						objDTO.getPassword(), objDTO.getCurso(),  objDTO.getProjeto(), objDTO.getPapel());
+	}
+
+	public Aluno fromDTO2(AlunoNewDTO objDTO) {
 		return new Aluno(objDTO.getId(), objDTO.getMatricula() ,objDTO.getNome(), objDTO.getEmail(), 
 						objDTO.getPassword(), objDTO.getCurso(),  objDTO.getProjeto(), objDTO.getPapel());
 	}

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.dev.domain.Projeto;
+import com.dev.domain.dto.ProjetoNewDTO;
 import com.dev.domain.dto.ProjetoUpdateDTO;
 import com.dev.services.ProjetoService;
 import io.swagger.annotations.Api;
@@ -50,7 +51,8 @@ public class ProjetoResource {
 	
 	@ApiOperation(value = "Cadastrar um novo Projeto no sistema")
 	@PostMapping
-	public ResponseEntity<Void> insert(@Valid @RequestBody Projeto obj){
+	public ResponseEntity<Void> insert(@Valid @RequestBody ProjetoNewDTO objDTO){
+		Projeto obj = service.fromDTO2(objDTO);
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(obj.getId()).toUri();

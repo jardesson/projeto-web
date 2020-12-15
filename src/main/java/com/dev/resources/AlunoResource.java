@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.dev.domain.Aluno;
+import com.dev.domain.dto.AlunoNewDTO;
 import com.dev.domain.dto.AlunoUpdateDTO;
 import com.dev.services.AlunoService;
 
@@ -50,7 +51,8 @@ public class AlunoResource {
 	
 	@ApiOperation(value = "Cadastrar um novo aluno no sistema")
 	@PostMapping
-	public ResponseEntity<Void> insert(@Valid @RequestBody Aluno obj){
+	public ResponseEntity<Void> insert(@Valid @RequestBody AlunoNewDTO objDTO){
+		Aluno obj = service.fromDTO2(objDTO);
 		obj = service.insert(obj);
 		
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
