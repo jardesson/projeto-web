@@ -28,12 +28,8 @@ public class Professor extends Usuario{
 	private static final long serialVersionUID = 1L;
 
 	@Column(unique = true)
-	@NotEmpty(message="Preenchimento obrigatório.")
-	@Length(min=5, max=50, message="O tamanho deve ser entre 5 e 50 caracteres.")
 	private String atuacao;
 	
-	@NotEmpty(message="Preenchimento obrigatório.")
-	@Length(min=5, max=50, message="O tamanho deve ser entre 5 e 20 caracteres.")
 	private String formacao;
 
 	@JsonIgnore

@@ -3,11 +3,8 @@ package com.dev.domain;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import org.hibernate.validator.constraints.Length;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,8 +21,7 @@ public class Aluno extends Usuario{
 	
 	private static final long serialVersionUID = 1L;
 	
-	@Length(min=4, max=30, message="O tamanho deve ser entre 4 e 30 caracteres.")
-	@NotEmpty(message="Preenchimento obrigatório.")
+	
 	private String curso;
 
 	@JsonIgnore

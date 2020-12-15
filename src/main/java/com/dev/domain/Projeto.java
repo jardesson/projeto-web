@@ -12,9 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.NotEmpty;
-
-import org.hibernate.validator.constraints.Length;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -36,12 +33,8 @@ public class Projeto implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotEmpty(message="Preenchimento obrigatório.")
-	@Length(min=5, max=50, message="O tamanho deve ser entre 5 e 50 caracteres.")
     private String nome;
 
-    @NotEmpty(message="Preenchimento obrigatório.")
-	@Length(min=5, max=50, message="O tamanho deve ser entre 5 e 50 caracteres.")
     private String descricao;
 
     @ManyToOne
