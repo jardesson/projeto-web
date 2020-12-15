@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dev.domain.Professor;
+import com.dev.domain.dto.ProfessorUpdateDTO;
 import com.dev.repository.ProfessorRepository;
 import com.dev.services.exceptions.ObjectNotFoundException;
 
@@ -49,7 +50,13 @@ public class ProfessorService{
 		newObj.setPassword(obj.getPassword());
 		newObj.setAtuacao(obj.getAtuacao());
 		newObj.setFormacao(obj.getFormacao());
-		newObj.addProjeto(obj.getProjetos().get(0));
+		newObj.setProjetos(obj.getProjetos());
+		//newObj.addProjeto(obj.getProjetos().get(0));
 
+	}
+
+	public Professor fromDTO(ProfessorUpdateDTO objDTO) {
+		return new Professor(objDTO.getId(), objDTO.getMatricula() ,objDTO.getNome(), objDTO.getEmail(), 
+							objDTO.getPassword(), objDTO.getAtuacao(),  objDTO.getFormacao(), objDTO.getProjetos());
 	}
 }

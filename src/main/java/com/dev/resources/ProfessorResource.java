@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.dev.domain.Professor;
+import com.dev.domain.dto.ProfessorUpdateDTO;
 import com.dev.services.ProfessorService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -57,7 +58,8 @@ public class ProfessorResource {
 	
 	@ApiOperation(value = "Atualizar as informações de um professor específico")
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<Void> update(@Valid @RequestBody Professor obj, @PathVariable Integer id){
+	public ResponseEntity<Void> update(@Valid @RequestBody ProfessorUpdateDTO objDTO, @PathVariable Integer id){
+		Professor obj = service.fromDTO(objDTO);
 		obj.setId(id);
 		service.update(obj);
 		return ResponseEntity.noContent().build();

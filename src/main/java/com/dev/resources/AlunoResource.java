@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.dev.domain.Aluno;
+import com.dev.domain.dto.AlunoUpdateDTO;
 import com.dev.services.AlunoService;
 
 import io.swagger.annotations.Api;
@@ -59,7 +60,8 @@ public class AlunoResource {
 	
 	@ApiOperation(value = "Atualizar as informações de um aluno específico")
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<Void> update(@Valid @RequestBody Aluno obj, @PathVariable Integer id){
+	public ResponseEntity<Void> update(@Valid @RequestBody AlunoUpdateDTO objDTO, @PathVariable Integer id){
+		Aluno obj = service.fromDTO(objDTO);
 		obj.setId(id);
 		service.update(obj);
 		return ResponseEntity.noContent().build();

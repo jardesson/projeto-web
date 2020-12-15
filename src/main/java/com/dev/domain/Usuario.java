@@ -41,7 +41,7 @@ public class Usuario implements Serializable{
 	private String matricula;
     
     @NotEmpty(message="Preenchimento obrigatório.")
-	@Length(min=5, max=50, message="O tamanho deve ser entre 5 e 50 caracteres.")
+	@Length(min=3, max=50, message="O tamanho deve ser entre 3 e 50 caracteres.")
     private String nome;
     
     @Column(unique = true)

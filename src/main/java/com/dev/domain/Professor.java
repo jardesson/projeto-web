@@ -44,5 +44,15 @@ public class Professor extends Usuario{
 
         projetos.add(p);
 
-    }
+	}
+
+	public Professor(Integer id, String matricula, String nome, String email, String password, String atuacao, String formacao, List<Projeto> projetos) {
+		super(id, matricula, nome, email, password);
+		this.atuacao = atuacao;
+		this.formacao = formacao;
+		this.projetos = projetos;
+	}
+
+
+	
 }

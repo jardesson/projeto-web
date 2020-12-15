@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import com.dev.domain.Aluno;
 import com.dev.domain.Projeto;
+import com.dev.domain.dto.ProjetoUpdateDTO;
 import com.dev.repository.AlunoRepository;
 import com.dev.repository.ProjetoRepository;
 import com.dev.services.exceptions.ObjectNotFoundException;
@@ -59,5 +60,9 @@ public class ProjetoService {
         newObj.setCoordenador(obj.getCoordenador());
 		//newObj.setAlunos(obj.getAlunos());
 		newObj.addAluno(obj.getAlunos().get(0));
+	}
+
+	public Projeto fromDTO(ProjetoUpdateDTO objDTO) {
+		return new Projeto(objDTO.getId(), objDTO.getNome(), objDTO.getDescricao(), objDTO.getCoordenador(), objDTO.getAlunos());
 	}
 }

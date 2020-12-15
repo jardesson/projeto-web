@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.dev.domain.Projeto;
+import com.dev.domain.dto.ProjetoUpdateDTO;
 import com.dev.services.ProjetoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -58,7 +59,8 @@ public class ProjetoResource {
 	
 	@ApiOperation(value = "Atualizar as informações de um Projeto específico")
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<Void> update(@Valid @RequestBody Projeto obj, @PathVariable Integer id){
+	public ResponseEntity<Void> update(@Valid @RequestBody ProjetoUpdateDTO objDTO, @PathVariable Integer id){
+		Projeto obj = service.fromDTO(objDTO);
 		obj.setId(id);
 		service.update(obj);
 		return ResponseEntity.noContent().build();
